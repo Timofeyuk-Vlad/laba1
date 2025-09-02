@@ -72,6 +72,18 @@ public class Complex {
     }
 
     /**
+     * --- ИЗМЕНЕНИЕ ЗДЕСЬ: Добавлена новая операция - вычитание ---
+     * Subtract operation.
+     * @param b subtrahend
+     * @return this Complex object whose value is (this - b)
+     */
+    public Complex subtract(Complex b) {
+        re -= b.re;
+        im -= b.im;
+        return this;
+    }
+
+    /**
      * Multiply operation.
      * @param  b multiplier
      * @return this Complex object whose value is this * b
@@ -86,11 +98,53 @@ public class Complex {
     }
 
     /**
-     * Square of Complex object's length, we're using square of length to 
+     * --- ИЗМЕНЕНИЕ ЗДЕСЬ: Добавлена новая операция - возведение в степень ---
+     * Power operation.
+     * @param n exponent
+     * @return this Complex object whose value is this ^ n
+     */
+    public Complex pow(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Power must be non-negative");
+        }
+        if (n == 0) {
+            this.re = 1;
+            this.im = 0;
+            return this;
+        }
+        if (n == 1) {
+            return this;
+        }
+
+        Complex original = this.copy();
+        for (int i = 1; i < n; i++) {
+            this.times(original);
+        }
+        return this;
+    }
+
+    /**
+     * --- ИЗМЕНЕНИЕ ЗДЕСЬ: Добавлен вспомогательный метод копирования ---
+     * Creates a copy of this Complex object.
+     * @return a new Complex object with the same real and imaginary parts.
+     */
+    public Complex copy() {
+        return new Complex(this.re, this.im);
+    }
+
+
+    /**
+     * Square of Complex object's length, we're using square of length to
      * eliminate the computation of square root
      * @return square of length
-    */
+     */
     public double lengthSQ() {
         return re * re + im * im;
+    }
+
+    public Complex minus(Complex b) {
+        re -= b.re;
+        im -= b.im;
+        return this;
     }
 }

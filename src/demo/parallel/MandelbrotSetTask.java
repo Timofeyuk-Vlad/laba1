@@ -275,7 +275,15 @@ class MandelbrotSetTask extends Task<Long> {
         int count = 0;
         Complex c = new Complex(0, 0);
         do {
-            c = c.times(c).minus(comp);
+            /**
+             * --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
+             * Старое уравнение (Множество Мандельброта):
+             * c = c.times(c).plus(comp);
+             *
+             * Новое уравнение (Кубическое множество): z = z^3 + c
+             * Используем новую операцию pow(3)
+             */
+            c.pow(3).plus(comp);
             count++;
         } while (count < CAL_MAX_COUNT && c.lengthSQ() < LENGTH_BOUNDARY);
         return count;
